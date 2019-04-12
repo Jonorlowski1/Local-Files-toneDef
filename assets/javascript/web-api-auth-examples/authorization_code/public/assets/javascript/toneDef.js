@@ -314,6 +314,12 @@ $(function () {
     opacity: 1,
     duration: 4000,
   })
+
+  tl.add({
+    targets: '#frontPage',
+    opacity: 1,
+    duration: 500,
+  })
   
  
   /* tl.finished.then(function() {
