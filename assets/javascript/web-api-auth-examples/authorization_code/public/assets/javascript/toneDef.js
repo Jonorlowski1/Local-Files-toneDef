@@ -418,24 +418,7 @@ var device_id = "";
       console.log('Device ID has gone offline', device_id);
     });
 
-        // ==============================
-    // NEW SEARCH DISPLAY INFORMATION
-    // ==============================
-    $("#submitButton").click(function () {
-      event.preventDefault();
-      $('.table tbody').empty();
-      var track = $('#searchInput').val().trim()
-      $.ajax({
-        url: 'https://api.spotify.com/v1/search?q=' + track + '&type=track&limit=10',
-        headers: {
-          'Authorization': 'Bearer ' + access_token
-        },
-        method: "GET"
-      }).then(function(response) {
-        console.log(response);
-      });
-    });
-
+//CLICK TO PLAY A SONG
     $("#photosTab").click(function(){
       event.preventDefault();
       $.ajax({
@@ -455,8 +438,21 @@ var device_id = "";
         },
       }).then(function() {
         console.log("hot lead");
+      });
+    });
 
-      }).then(function (response) {
+    //SEARCH FOR SONGS
+    $("#submitButton").click(function () {
+      event.preventDefault();
+      $('.table tbody').empty();
+      var track = $('#searchInput').val().trim()
+      $.ajax({
+        url: 'https://api.spotify.com/v1/search?q=' + track + '&type=track&limit=10',
+        headers: {
+          'Authorization': 'Bearer ' + access_token
+        },
+        method: "GET"
+      }).then(function(response) {
         console.log(response);
         var dataResponse = response.tracks.items;
         for (var i = 0; i < dataResponse.length; i++) {
@@ -473,16 +469,16 @@ var device_id = "";
           var artistName = dataResponse[i].artists[0].name;
           console.log('ARTIST: ' + artistName);
 
-          $('.track-body').append("<tr><td class='track' data-name='" + trackID + "'>" + trackName + '</td><td>' + artistName + '</td></tr>');
+          $('.track-body').append("<tr><td class='trackuri' data-name='" + trackID + "'>" + trackName + '</td><td>' + artistName + '</td></tr>');
           $('.album-body').append('<tr><td>' + albumName + '</td><td>' + artistName + '</td></tr>');
         }
-        function playSelectedSong() {
-          // var thisTrackID = $(this).attr(trackID);
-          // console.log('TRACK ID', thisTrackID);
-          console.log('TRACK ID', $(this).attr('data-name'));
-        }
-        $(document).on('click', '.track', playSelectedSong);
       });
+      $(document).on('click', '.trackuri', playSelectedSong());
+      function playSelectedSong() {
+        var thisTrackID = $(this).attr('data-name');
+        console.log('TRACK ID', thisTrackID);
+        console.log('TRACK ID', $(this).attr('data-name'));
+      }
     })
     // Connect to the player!
     player.connect();
