@@ -81,6 +81,7 @@ function displayYouTubeVideo() {
 
   var queryURL = 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&key=AIzaSyBr3fLPLRTVvMQovAL5Xi3pv4txQWnBZDA&q=' + searchTerm + '+official+music+video';
 
+
   $.ajax({
     url: queryURL,
     method: 'GET'
@@ -308,70 +309,67 @@ var player;
   function getHashParams() {
     var hashParams = {};
     var e, r = /([^&;=]+)=?([^&;]*)/g,
-      q = window.location.hash.substring(1);
-    while (e = r.exec(q)) {
-      hashParams[e[1]] = decodeURIComponent(e[2]);
+        q = window.location.hash.substring(1);
+    while ( e = r.exec(q)) {
+       hashParams[e[1]] = decodeURIComponent(e[2]);
     }
     return hashParams;
   }
   var params = getHashParams();
   var access_token = params.access_token,
-    refresh_token = params.refresh_token,
-    error = params.error;
+      
+  refresh_token = params.refresh_token,
+  error = params.error;
   console.log(access_token);
-
   if (error) {
     alert('There was an error during the authentication');
   } else {
     if (access_token) {
-
+     
       $.ajax({
         url: 'https://api.spotify.com/v1/me',
         headers: {
           'Authorization': 'Bearer ' + access_token
         },
-        success: function (response) {
-
-          $('#login').hide();
-          $('#loggedin').show();
+        success: function(response) {
+          $('#login-with-spotify').hide();
+          $('#obtain-new-token').show();
         }
       });
     } else {
       // render initial screen
-      $('#login').show();
-      $('#loggedin').hide();
+      $('#login-with-spotify').show();
+      $('#obtain-new-token').hide();
     }
 
     document.getElementById('obtain-new-token').addEventListener('click', function () {
+
       $.ajax({
         url: '/refresh_token',
         data: {
           'refresh_token': refresh_token
         }
+
       }).done(function (data) {
         access_token = data.access_token;
         return (access_token);
       });
     }, false);
   }
+                                                                 
   window.onSpotifyWebPlaybackSDKReady = () => {
-    console.log("you know");
     var token = access_token;
     var player = new Spotify.Player({
-      name: 'Web Playback SDK Quick Start Player',
+      name: 'toneDef',
       getOAuthToken: cb => { cb(token); }
     });
-
-
     // Error handling
     player.addListener('initialization_error', ({ message }) => { console.error(message); });
     player.addListener('authentication_error', ({ message }) => { console.error(message); });
     player.addListener('account_error', ({ message }) => { console.error(message); });
     player.addListener('playback_error', ({ message }) => { console.error(message); });
-
     // Playback status updates
     player.addListener('player_state_changed', state => { console.log(state); });
-
     player.addListener('ready', ({ device_id }) => {
       console.log('Ready with Device ID', device_id);
       $.ajax({
@@ -387,13 +385,12 @@ var player;
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + access_token,
         },
-      }).then(function () {
-        console.log("hot lead");
-        console.log(device_id);
+
+      }).then(function() {
+        console.log("Device ID: " + device_id + " now playing");
       });
 
     });
-
     //   function displayLyrics() {
     //     var cors = 'https://cors-anywhere.herokuapp.com/'
     //     var artist = state.track_window.current_track.artists[0].name;
@@ -417,34 +414,33 @@ var player;
     player.addListener('ready', ({ device_id }) => {
       console.log('Ready with Device ID', device_id);
     });
-
+ 
     // Not Ready
     player.addListener('not_ready', ({ device_id }) => {
       console.log('Device ID has gone offline', device_id);
     });
 
-
+    
     // Connect to the player!
     player.connect();
-
-    $("#playButton").click(function () {
+    
+    $("#playButton").click(function(){
       player.resume();
       playerStatus();
     });
-    $("#pauseButton").click(function () {
+    $("#pauseButton").click(function(){
       player.pause();
       playerStatus();
     });
-    $("#previousButton").click(function () {
+    $("#previousButton").click(function(){
       player.previousTrack();
       playerStatus();
     });
-    $("#nextButton").click(function () {
+    $("#nextButton").click(function(){
       player.nextTrack();
       playerStatus();
     });
-
-
+    
 
     // ==============================
     // NEW SEARCH DISPLAY INFORMATION
@@ -459,6 +455,31 @@ var player;
           'Authorization': 'Bearer ' + access_token
         },
         method: "GET"
+      }).then(function(response) {
+        console.log(response);
+      });
+    });
+    //The Click event to play an object's URI was attached to the photos tab (for now)
+    $("#photosTab").click(function(){
+      event.preventDefault();
+      $.ajax({
+        url: 'https://api.spotify.com/v1/me/player/play',
+        method: 'PUT',
+        data: JSON.stringify({
+          "context_uri": "spotify:album:5ht7ItJgpBH7W6vJ5BqpPr",
+          "offset": {
+            "position": 5
+          },
+          "position_ms": 0
+        }),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + access_token,
+        },
+      }).then(function() {
+        console.log("hot lead");
+
       }).then(function (response) {
         console.log(response);
         var dataResponse = response.tracks.items;
@@ -486,10 +507,10 @@ var player;
         }
         $(document).on('click', '.track', playSelectedSong);
       });
-    });
+    })
+      
+    function playerStatus(){
 
-
-    function playerStatus() {
       player.getCurrentState().then(state => {
         if (!state) {
           console.error('User is not playing music through the Web Playback SDK');
@@ -499,7 +520,6 @@ var player;
           next_tracks: [next_track]
         } = state.track_window;
         console.log(current_track.album.uri)
-
         console.log('Currently Playing', current_track);
         console.log('Playing Next', next_track);
 
@@ -507,4 +527,4 @@ var player;
     };
   };
 
-})();
+});
