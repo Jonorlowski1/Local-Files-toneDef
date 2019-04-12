@@ -370,7 +370,6 @@ $('#submitButton').on('click', function () {
 });
 
 $('#newsTab').on('click', function () {
-  $('#photosPage').hide();
   $('#newsPage').css('opacity', 1);
   newsTab();
   let tl = anime.timeline({
@@ -379,11 +378,8 @@ $('#newsTab').on('click', function () {
   tl.add({
     targets: '#newsSection .newsTransition',
     margin: '1em',
-  })
-  tl.add({
-    targets: '#newsSection .newsTransition',
-    margin: '1em',
     height: '57vh',
+    width: '90%',
     backgroundColor: 'rgb(150, 221, 255)',
     delay: anime.stagger(100),
   })
@@ -395,12 +391,28 @@ $('#newsTab').on('click', function () {
 });
 
 $('#homeTab').on('click', function () {
+  $('#frontPage').css('opacity', 1);
   mainPage();
+
+  let tl= anime.timeline({
+    duration: 1000,
+  })
+  tl.add({
+    targets: '#homeSection .homeTransition',
+    margin: '1em',
+    height: '57vh',
+    width: '90%',
+    backgroundColor: 'rgb(150, 221, 255',
+    delay: anime.stagger(100),
+  })
+  tl.add({targets: '#homeSection .homeTransition',
+  height: 0,
+  easing: 'easeInOutCirc',
+})
 });
 
 $('#photosTab').on('click', function () {
   $('#photosPage').css('opacity', 1);
-  $('#newsPage').css('opacity', 0);
   photosTab();
 
   let tl = anime.timeline({
@@ -410,6 +422,7 @@ $('#photosTab').on('click', function () {
     targets: '#photosSection .photosTransition',
     margin: '1em',
     height: '57vh',
+    width: '90%',
     backgroundColor: 'rgb(150, 221, 255)',
     delay: anime.stagger(100),
   })
@@ -694,6 +707,7 @@ var player;
     // NEW SEARCH DISPLAY INFORMATION
     // ==============================
     $("#submitButton").click(function () {
+      
       event.preventDefault();
       $('.table tbody').empty();
       var track = $('#searchInput').val().trim()
@@ -706,6 +720,7 @@ var player;
       }).then(function(response) {
         console.log(response);
       });
+      
     });
     //The Click event to play an object's URI was attached to the photos tab (for now)
     $("#photosTab").click(function(){

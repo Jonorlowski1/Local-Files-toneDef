@@ -196,12 +196,18 @@ h2 {
     margin-right: 1em;
     z-index: 2;
 }
-
-.photosTransition {
+.homeTransition {
     background-color: #96DDFF;
     height: 100vh;
     margin-right: 1em;
     z-index: 2;
+}
+
+.photosTransition {
+    background-color: #96DDFF;
+    height: 100vh;
+    z-index: 2;
+    margin-right: 1em;
 }
 
 .newsTransition {
