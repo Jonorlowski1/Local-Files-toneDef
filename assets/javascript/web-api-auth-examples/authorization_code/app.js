@@ -2,8 +2,6 @@
  * This is an example of a basic node.js script that performs
  * the Authorization Code oAuth2 flow to authenticate against
  * the Spotify Accounts.
- * *
- * 
  *
  * For more information, read
  * https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
@@ -24,7 +22,7 @@ var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
  * @param  {number} length The length of the string
  * @return {string} The generated string
  */
-var generateRandomString = function(length) {
+var generateRandomString = function (length) {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -39,10 +37,10 @@ var stateKey = 'spotify_auth_state';
 var app = express();
 
 app.use(express.static(__dirname + '/public'))
-   .use(cors())
-   .use(cookieParser());
+  .use(cors())
+  .use(cookieParser());
 
-app.get('/login', function(req, res) {
+app.get('/login', function (req, res) {
 
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -59,7 +57,7 @@ app.get('/login', function(req, res) {
     }));
 });
 
-app.get('/callback', function(req, res) {
+app.get('/callback', function (req, res) {
 
   // your application requests refresh and access tokens
   // after checking the state parameter
@@ -88,11 +86,11 @@ app.get('/callback', function(req, res) {
       json: true
     };
 
-    request.post(authOptions, function(error, response, body) {
+    request.post(authOptions, function (error, response, body) {
       if (!error && response.statusCode === 200) {
 
         var access_token = body.access_token,
-            refresh_token = body.refresh_token;
+          refresh_token = body.refresh_token;
 
         var options = {
           url: 'https://api.spotify.com/v1/me',
@@ -101,8 +99,8 @@ app.get('/callback', function(req, res) {
         };
 
         // use the access token to access the Spotify Web API
-        request.get(options, function(error, response, body) {
-          console.log(body);
+        request.get(options, function (error, response, body) {
+
         });
 
         // we can also pass the token to the browser to make requests from there
@@ -118,10 +116,11 @@ app.get('/callback', function(req, res) {
           }));
       }
     });
+
   }
 });
 
-app.get('/refresh_token', function(req, res) {
+app.get('/refresh_token', function (req, res) {
 
   // requesting access token from refresh token
   var refresh_token = req.query.refresh_token;
@@ -135,7 +134,7 @@ app.get('/refresh_token', function(req, res) {
     json: true
   };
 
-  request.post(authOptions, function(error, response, body) {
+  request.post(authOptions, function (error, response, body) {
     if (!error && response.statusCode === 200) {
       var access_token = body.access_token;
       res.send({
