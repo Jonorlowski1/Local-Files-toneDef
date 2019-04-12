@@ -20,6 +20,19 @@
 </head>
 
 <body>
+  
+  <!-- <div class="container">
+    <div id="login">
+      <a href="/login" class="btn btn-primary margin-top=20px" id="login-with-spotify">Log in with Spotify</a>
+    </div>
+    <div id="loggedin">
+      <div id="user-profile">
+      </div>
+      <div id="oauth">
+      </div>
+      <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>
+    </div>
+  </div> -->
 
   <section>
     <div class="transition"></div>
@@ -34,7 +47,6 @@
     <div class="transition"></div>
   </section>
 
-  
   <div class="jumbotron jumbotron-fluid bg-dark" id="header">
     <h1 id="returnToMainPage" class="text-center text-weight-bold">toneDef</h1>
 
@@ -80,8 +92,8 @@
             </div>
             <button class="btn btn-default" id="obtain-new-token">Refresh Token</button>
           </div>
-        </div> -->
-
+        </div>
+ -->
       </form>
     </div>
   </nav>
@@ -106,12 +118,7 @@
               <th class="songHeader">Artist</th>
             </tr>
           </thead>
-          <tbody class="text-white">
-            <tr id="tableRow">
-              <td id="songDiv" class="songData">New Light</td>
-              <td id="artistDiv" class="songData">John Mayer</td>
-
-            </tr>
+          <tbody class="track-body text-white">
           </tbody>
         </table>
         <br>
@@ -123,42 +130,10 @@
 
             </tr>
           </thead>
-          <tbody class="text-white">
-            <tr>
-              <td class="albumData">Homework</td>
-              <td class="albumData" class="artistData">Daft Punk</td>
-            </tr>
+          <tbody class="album-body text-white">
           </tbody>
         </table>
         <br>
-        <table class="table table-striped table-bordered text-center">
-          <thead class="thead font-weight-bold text-dark">
-            <tr>
-              <th class="artistHeader">Artists</th>
-            </tr>
-          </thead>
-          <tbody class="text-white">
-            <tr>
-              <td class="artistData">Daft Punk</td>
-            </tr>
-          </tbody>
-        </table>
-        <br>
-
-        <!-- <table class="table table-striped table-bordered text-center">
-            <thead class="thead font-weight-bold bg-primary text-white">
-              <tr>
-                <th scope="col" colspan="4">Songs</th>
-                <th scope="col" colspan="4">Albums</th>
-              </tr>
-            </thead>
-            <tbody class="text-white">
-              <tr>
-                <td colspan="3">Abbey Road</td>
-                <td colspan="3">Come Together</td>
-              </tr>
-            </tbody>
-          </table> -->
 
         <div class="col-4 offset-4">
           <br>
@@ -171,7 +146,6 @@
       <div class="col-8 offset-2" id="lyrics-div"></div>
 
     </div>
-    <div id="musicVideo" class="container">
         <div class="row">
           <div class="col-4 offset-4">
             <br>
@@ -186,7 +160,6 @@
     
           </div>
         </div>
-      </div>
   </div>
   <!--frontPage div end-->
   <br>
