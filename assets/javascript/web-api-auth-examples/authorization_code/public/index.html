@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>toneDef</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./assets/css/reset.css">
+  <link href="https://fonts.googleapis.com/css?family=Copse" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+  <script src="https://sdk.scdn.co/spotify-player.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="./assets/css/toneDef.css">
+</head>
+
+<body>
+  <div class="container">
+    <div id="login">
+      <a href="/login" class="btn btn-primary margin-top=20px">Log in with Spotify</a>
+    </div>
+    <div id="loggedin">
+      <div id="user-profile">
+      </div>
+      <div id="oauth">
+      </div>
+      <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>
+    </div>
+  </div>
+  <div class="jumbotron jumbotron-fluid bg-dark" id="header">
+    <h1 id="returnToMainPage" class="text-center text-weight-bold">toneDef</h1>
+    <h3 class="lead text-weight-bold text-center">Hear More. Know More.</h3>
+  </div>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark navbar-header">
+
+    <a class="navbar-brand" style="color: #93D3FB" id="homeTab" href="#">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" style="color: #93D3FB" id="photosTab" href="#">Photos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="color: #93D3FB" id="tourDatesTab" href="#">Tour Dates</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="color: #93D3FB" id="newsTab" href="#">Artist Info</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="color: #93D3FB" id="contactTab" href="#">Contact</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn my-2 my-sm-0" style="color: #93D3FB" id="submitButton" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  <!--frontPage div begin-->
+  <div id="frontPage" class="container wrap">
+    <div class="row">
+      <div class="col-12">
+        <br><br>
+        <h1>Search Results</h1>
+      </div>
+    </div>
+    <!--results header row ends here-->
+
+    <div class="row">
+      <div class="col-12">
+
+        <table class="table table-striped table-bordered text-center">
+          <thead class="thead font-weight-bold bg-primary text-white">
+            <tr>
+              <th class="songHeader">Songs</th>
+              <th class="songHeader">Artist</th>
+            </tr>
+          </thead>
+          <tbody class="track-body text-white">
+          </tbody>
+        </table>
+        <br>
+        <table class="table table-striped table-bordered text-center">
+          <thead class="thead font-weight-bold bg-primary text-white">
+            <tr>
+              <th class="albumHeader">Albums</th>
+              <th class="albumHeader">Artist</th>
+            </tr>
+          </thead>
+          <tbody class="album-body text-white">
+          </tbody>
+        </table>
+        <br>
+
+        <div class="col-4 offset-4">
+          <br>
+          <h1>Lyrics</h1>
+        </div>
+      </div>
+
+      <div class="col-8 offset-2" id="lyrics-div"></div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-4 offset-4">
+        <br>
+        <h1>Music Video</h1>
+      </div>
+    </div>
+
+    <!-- MUSIC VIDEO DISPLAY -->
+    <div class="row">
+      <div class="col-12" id="musicVideoContainer">
+        <img id="musicVideoPlayer">
+
+      </div>
+    </div>
+    <!--row ends here-->
+  </div>
+  <!--frontPage div end-->
+
+  <!--photosPage div begin-->
+  <div id="photosPage" class="container">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div id="photos-div">
+            photosPage placeholder
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--photosPage div end-->
+
+  <!--tourPage div begin-->
+  <div id="tourPage" class="container">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          tourPage placeholder
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--tourPage div end-->
+
+
+  <!--newsPage div begin-->
+  <div id="newsPage" class="container">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <br><br>
+          <h1>Artist Info</h1>
+          <br><br>
+          <h2 id="artistName"></h2>
+          <br>
+          <p class="wikiResults" id="results1"></p>
+          <br>
+          <p class="wikiResults" id="results2"></p>
+          <br>
+          <p class="wikiResults" id="results3"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--newsPage div end-->
+
+  <!--contactPage div begin-->
+  <div id="contactPage" class="container">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          contactPage placeholder
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--contactPage div end-->
+  <footer class="footer navbar navbar-default fixed-bottom">
+    <div id="musicButtons" class="container">
+      <i class="fa fa-fast-backward" id="previousButton"></i>
+      <i class="fa fa-play" id="playButton"></i>
+      <i class="fa fa-pause" id="pauseButton"></i>
+      <i class="fa fa-fast-forward" id="nextButton"></i>
+    </div>
+  </footer>
+
+
+
+  </div>
+  </div>
+  <!--background ends here-->
+
+  </div>
+  <script src="./assets/javascript/toneDef.js"></script>
+</body>
+
+</html>

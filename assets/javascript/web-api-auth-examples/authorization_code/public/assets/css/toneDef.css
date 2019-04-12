@@ -1,0 +1,117 @@
+* {
+
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #8d8d8def;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+h1 {
+    color: #000000;
+    text-align: center;
+    font-size: calc(150% + 2.5vw);
+    text-shadow:
+    -1px -1px 0 #FF9900,
+    1px -1px 0 #FF9900,
+    -1px 1px 0 #FF9900,
+    1px 1px 0 #FF9900;
+    color: #000000;  
+}
+
+h2 {
+    font-size: 40px;
+    text-decoration: underline;
+    text-align: center;
+}
+
+#header {
+    border-bottom: #FF9900 solid thick;
+}
+
+#lyrics-div {
+    height: 400px;
+    width: 100%;
+    border: #007BFF solid thick;
+    overflow: auto;
+    font-size: calc(100% + 0.6vw);
+    text-align: center;
+    background-color: #eeeeee;
+    padding: 0;
+}
+
+#front-page {
+    padding-bottom: 50%;
+}
+
+.navbar-header {
+    margin: 0;
+    margin-top: -33px;
+    border-bottom: #FF9900 solid thick;
+}
+
+.nav-link,
+.display-1,
+.lead {
+    color: #93D3FB;
+}
+
+#submitButton {
+    border:#93D3FB solid thin;
+}
+
+.songHeader,
+.albumHeader,
+.albumData {
+    width: 50%;
+}
+
+.albumData,
+.artistData,
+.songData {
+    color: #000000;
+    background-color: #ffffff;
+}
+
+.songHeader,
+.albumHeader,
+.artistHeader {
+    color: #000000;
+    background-color: #93D3FB;
+}
+
+#musicVideoContainer {
+  text-align: center;
+  margin-bottom: 10%;
+}
+
+.wikiResults {
+    font-family: 'Copse', serif;
+    font-size: 28px;
+}
+
+#results3 {
+    padding-bottom: 5%;
+}
+
+#musicButtons {
+    padding: 0 25%;
+    text-align: center;
+}
+
+.fa {
+    font-size: calc(100% + 0.9vw);
+}
+
+.footer {
+    z-index: 99;
+    max-width: 100%;
+    /* Colorizing used from https://cssgradient.io/ */
+    background: rgb(255,153,0);
+    background: radial-gradient(circle, rgba(255,153,0,1) 49%, rgba(0,0,0,1) 100%);
+}
