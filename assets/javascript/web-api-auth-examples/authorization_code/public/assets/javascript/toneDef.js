@@ -1,9 +1,53 @@
+function hideAll() {
+  $('#frontPage').hide();
+  $('#newsPage').hide();
+  $('#photosPage').hide();
+  $('#tourPage').hide();
+  $('#contactPage').hide();
+  $('#musicVideo').hide();
+};
+
+function pageLoad() {
+  hideAll();
+  $('#frontPage').show();
+}
+pageLoad();
 
 //TRACK LOOKUP
 // $.ajaxPrefilter(function (options) {
 //   if (options.crossDomain && jQuery.support.cors) {
 //     options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
 //   }
+// });
+
+function displayLyrics() {
+  var artist = $("#artistDiv").html();
+  var song = $("#songDiv").html();
+  var queryURL_lyrics = "https://private-anon-1e650a5c58-lyricsovh.apiary-proxy.com/v1/" + artist + "/" + song;
+  $.ajax({
+    url: queryURL_lyrics,
+    method: "GET",
+  }).then(function (response) {
+    // console.log(response.body);
+    var lyrics = response.lyrics;
+    $("#lyrics-div").html(lyrics);
+  });
+};
+displayLyrics();
+
+function displayPhotos() {
+  // var artist = $('#artistDiv').html();
+  $.ajax({
+    type: 'POST',
+    url: 'curl -H "Authorization: 563492ad6f91700001000001404ed7fc9dba4294b7d85af8737e84e5" "https://api.pexels.com/v1/search?query=people"',
+    dataType: 'json',
+    success: function (data) {
+      console.log('PHOTOS: ' + data);
+    }
+
+  })
+};
+displayPhotos();
 
 // IP LOOKUP
 function displayEvents() {
@@ -31,7 +75,6 @@ function displayEvents() {
   });
 };
 
-// This wasn't in a function, and it almost looks like a duplicate, so I put it in it's own function
 function displayOtherEvents() {
   var apikey_IP = "7f3b94deee23a7b7e8c0d6d6355a33cf";
   var queryURL_IP = "http://api.ipstack.com/check?access_key=" + apikey_IP + "&output=json";
@@ -42,8 +85,10 @@ function displayOtherEvents() {
   }).then(function (response) {
 
     response_ip = response.ip;
+
     console.log("User IP: " + response_ip)
-    console.log(response);
+    // console.log(response);
+
 
     //SONGKICK NEARBY EVENT LOOKUP
     var apikey_localEvents = "926QLoynaFfTnoup"
@@ -55,6 +100,14 @@ function displayOtherEvents() {
       console.log(response);
       var upcomingEvents = response.resultsPage.results.location[0].metroArea.uri;
       console.log("local upcoming events: " + upcomingEvents);
+
+      var subHeader = $("<a class=tour-link href=" + upcomingEvents + ">Find out if " + $('#artistDiv').text() + " is on tour near you!</a>");
+      $('#localTourLink').append(subHeader);
+
+    response_ip = response.ip;
+    console.log("User IP: " + response_ip)
+    console.log(response);
+
     })
   });
 };
@@ -72,6 +125,17 @@ function artistLookup() {
 
     console.log("artist upcoming events");
     console.log(response);
+
+    var artistName = response.resultsPage.results.artist[0].displayName;
+    var subHeader = $("<a class=tour-link href=" + tourDate + ">Find out where " + $('#artistDiv').text() + " is currently touring by clicking here</a>");
+    var tourDate = response.resultsPage.results.artist[0].uri;
+    var onTour = response.resultsPage.results.artist[0].onTourUntil;
+
+    $('#artistNameTour').text(artistName);
+    $('#tourDate').text('On Tour Until: ' + onTour);
+    $('#tourLink').append(subHeader);
+
+    console.log('LINK TO TOUR INFO: ' + tourDate);
   })
 };
 artistLookup();
@@ -257,7 +321,7 @@ $(function () {
   tl.add({
     targets: '#frontPage',
     opacity: 1,
-    duration: 500,
+    duration: 150,
   })
 
 
@@ -273,22 +337,60 @@ $(function () {
   }); */
 });
 
+function photosTab() {
+  hideAll();
+  $('#photosPage').show();
+}
+
+
+function tourTab() {
+  hideAll();
+  $('#tourPage').show();
+}
+
+function mainPage() {
+  hideAll();
+  $('#frontPage').show();
+};
+
+function contactTab() {
+  hideAll();
+  $('#contactPage').show();
+};
+
+var newMusicVideo = $('<img>').attr('id', 'musicVideoPlayer');
+
+$('#submitButton').on('click', function () {
+  event.preventDefault();
+  $('#musicVideoContainer').empty();
+  $('#musicVideoContainer').append(newMusicVideo);
+  displayYouTubeVideo();
+  displayLastFmInfo();
+
+});
 
 $('#newsTab').on('click', function () {
-
+  $('#photosPage').hide();
   $('#newsPage').css('opacity', 1);
   newsTab();
   let tl = anime.timeline({
-    easing: 'easeInOutSine',
     duration: 1000,
   })
-
   tl.add({
     targets: '#newsSection .newsTransition',
-    height: "40vh",
+    margin: '1em',
+  })
+  tl.add({
+    targets: '#newsSection .newsTransition',
+    margin: '1em',
+    height: '57vh',
     backgroundColor: 'rgb(150, 221, 255)',
-    translateX: 500,
     delay: anime.stagger(100),
+  })
+  tl.add({
+    targets: '#newsSection .newsTransition',
+    height: 0,
+    easing: 'easeInOutCirc',
   })
 });
 
@@ -296,6 +398,32 @@ $('#homeTab').on('click', function () {
   mainPage();
 });
 
+$('#photosTab').on('click', function () {
+  $('#photosPage').css('opacity', 1);
+  $('#newsPage').css('opacity', 0);
+  photosTab();
+
+  let tl = anime.timeline({
+    duration: 1000,
+  })
+  tl.add({
+    targets: '#photosSection .photosTransition',
+    margin: '1em',
+    height: '57vh',
+    backgroundColor: 'rgb(150, 221, 255)',
+    delay: anime.stagger(100),
+  })
+  tl.add({
+    targets: '#photosSection .photosTransition',
+    height: 0,
+    easing: 'easeInOutCirc',
+  })
+
+});
+
+$('#tourDatesTab').on('click', function () {
+  tourTab();
+});
 //SPOTIFY Web Playback SDK
 
 var access_token = "";
@@ -390,6 +518,126 @@ var player;
         console.log("Device ID: " + device_id + " now playing");
       });
 
+// //SPOTIFY Web Playback SDK
+
+// var access_token = "";
+// var player;
+// (function() {
+
+//   /**
+//    * Obtains parameters from the hash of the URL
+//    * @return Object
+//    */
+//   function getHashParams() {
+//     var hashParams = {};
+//     var e, r = /([^&;=]+)=?([^&;]*)/g,
+//         q = window.location.hash.substring(1);
+//     while ( e = r.exec(q)) {
+//        hashParams[e[1]] = decodeURIComponent(e[2]);
+//     }
+//     return hashParams;
+//   }
+//   var params = getHashParams();
+//   var access_token = params.access_token,
+//   refresh_token = params.refresh_token,
+//   error = params.error;
+//   console.log(access_token);
+
+//   if (error) {
+//     alert('There was an error during the authentication');
+//   } else {
+//     if (access_token) {
+
+//       $.ajax({
+//         url: 'https://api.spotify.com/v1/me',
+//         headers: {
+//           'Authorization': 'Bearer ' + access_token
+//         },
+//         success: function(response) {
+
+//           $('#login').hide();
+//           $('#loggedin').show();
+//         }
+//       });
+//     } else {
+//       // render initial screen
+//       $('#login').show();
+//       $('#loggedin').hide();
+//     }
+
+//     document.getElementById('obtain-new-token').addEventListener('click', function() {
+//       $.ajax({
+//         url: '/refresh_token',
+//         data: {
+//           'refresh_token': refresh_token
+//         }
+//       }).done(function(data) {
+//         access_token = data.access_token;
+//         return(access_token);
+//       });
+//     }, false);
+//   }
+//   window.onSpotifyWebPlaybackSDKReady = () => {
+//     console.log("you know");
+//     var token = access_token;
+//     var player = new Spotify.Player({
+//       name: 'Web Playback SDK Quick Start Player',
+//       getOAuthToken: cb => { cb(token); }
+//     });
+
+//     // Error handling
+//     player.addListener('initialization_error', ({ message }) => { console.error(message); });
+//     player.addListener('authentication_error', ({ message }) => { console.error(message); });
+//     player.addListener('account_error', ({ message }) => { console.error(message); });
+//     player.addListener('playback_error', ({ message }) => { console.error(message); });
+
+//     // Playback status updates
+//     player.addListener('player_state_changed', state => { console.log(state); });
+
+//     // Ready
+//     player.addListener('ready', ({ device_id }) => {
+//       console.log('Ready with Device ID', device_id);
+//     });
+
+//     // Not Ready
+//     player.addListener('not_ready', ({ device_id }) => {
+//       console.log('Device ID has gone offline', device_id);
+//     });
+
+
+//     // Connect to the player!
+//     player.connect();
+
+//     $("#playButton").click(function(){
+//       player.resume();
+//       playerStatus();
+//     });
+//     $("#pauseButton").click(function(){
+//       player.pause();
+//       playerStatus();
+//     });
+//     $("#previousButton").click(function(){
+//       player.previousTrack();
+//       playerStatus();
+//     });
+//     $("#nextButton").click(function(){
+//       player.nextTrack();
+//       playerStatus();
+//     });
+
+//     function playerStatus(){
+//       player.getCurrentState().then(state => {
+//       if (!state) {
+//         console.error('User is not playing music through the Web Playback SDK');
+//         return;
+//       }
+//       let {
+//         current_track,
+//         next_tracks: [next_track]
+//       } = state.track_window;
+
+//       console.log('Currently Playing', current_track);
+//       console.log('Playing Next', next_track);
     });
     //   function displayLyrics() {
     //     var cors = 'https://cors-anywhere.herokuapp.com/'
