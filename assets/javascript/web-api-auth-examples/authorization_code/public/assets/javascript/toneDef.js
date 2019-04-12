@@ -282,6 +282,7 @@ $(function () {
   $('#tourPage').css('opacity', 0);
   $('#newsPage').css('opacity', 0);
   $('#contactPage').css('opacity', 0);
+  $('.homeTransition').css('opacity', 0);
   let tl = anime.timeline({
     easing: 'easeOutExpo',
     duration: 1000,
@@ -381,7 +382,7 @@ $('#newsTab').on('click', function () {
     height: '57vh',
     width: '90%',
     backgroundColor: 'rgb(150, 221, 255)',
-    delay: anime.stagger(100),
+    delay: anime.stagger(100, { from: 'center'}),
   })
   tl.add({
     targets: '#newsSection .newsTransition',
@@ -392,6 +393,7 @@ $('#newsTab').on('click', function () {
 
 $('#homeTab').on('click', function () {
   $('#frontPage').css('opacity', 1);
+  $('.homeTransition').css('opacity', 1);
   mainPage();
 
   let tl= anime.timeline({
