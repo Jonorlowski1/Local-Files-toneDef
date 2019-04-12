@@ -14,32 +14,38 @@
     crossorigin="anonymous"></script>
   <script src="https://sdk.scdn.co/spotify-player.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous">
   <link rel="stylesheet" href="./assets/css/toneDef.css">
 </head>
 
 <body>
-  <div class="container">
-    <div id="login">
-      <a href="/login" class="btn btn-primary margin-top=20px">Log in with Spotify</a>
-    </div>
-    <div id="loggedin">
-      <div id="user-profile">
-      </div>
-      <div id="oauth">
-      </div>
-      <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>
-    </div>
-  </div>
+
+  <section>
+    <div class="transition"></div>
+    <div class="transition"></div>
+    <div class="transition"></div>
+    <div class="transition"></div>
+    <div class="transition"></div>
+    <div class="transition"></div>
+    <div class="transition"></div>
+    <div class="transition"></div>
+    <div class="transition"></div>
+    <div class="transition"></div>
+  </section>
+
+  
   <div class="jumbotron jumbotron-fluid bg-dark" id="header">
     <h1 id="returnToMainPage" class="text-center text-weight-bold">toneDef</h1>
+
     <h3 class="lead text-weight-bold text-center">Hear More. Know More.</h3>
   </div>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-dark navbar-header">
+  <nav class="navbar navbar-expand-lg navbar-light navbar-header navbarBackground">
 
-    <a class="navbar-brand" style="color: #93D3FB" id="homeTab" href="#">Home</a>
+
+    <a class="navbar-brand" id="homeTab" href="#">Home</a>
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -47,21 +53,35 @@
     <div class="navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" style="color: #93D3FB" id="photosTab" href="#">Photos</a>
+
+          <a class="nav-link" id="photosTab" href="#">Photos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" style="color: #93D3FB" id="tourDatesTab" href="#">Tour Dates</a>
+          <a class="nav-link" id="newsTab" href="#">Artist Info</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" style="color: #93D3FB" id="newsTab" href="#">Artist Info</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" style="color: #93D3FB" id="contactTab" href="#">Contact</a>
+          <a class="nav-link" id="contactTab" href="#">Contact</a>
+
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn my-2 my-sm-0" style="color: #93D3FB" id="submitButton" type="submit">Search</button>
+
+        <button class="btn btn-outline-dark my-2 my-sm-0" id="submitButton" type="submit">Search</button>
+
+        <!-- <div class="container">
+          <div id="login">
+            <a href="/login" class="btn mt-3">Spotify Login</a>
+          </div>
+          <div id="loggedin">
+            <div id="user-profile">
+            </div>
+            <div id="oauth">
+            </div>
+            <button class="btn btn-default" id="obtain-new-token">Refresh Token</button>
+          </div>
+        </div> -->
+
       </form>
     </div>
   </nav>
@@ -80,7 +100,7 @@
       <div class="col-12">
 
         <table class="table table-striped table-bordered text-center">
-          <thead class="thead font-weight-bold bg-primary text-white">
+          <thead class="thead font-weight-bold text-dark">
             <tr>
               <th class="songHeader">Songs</th>
               <th class="songHeader">Artist</th>
@@ -88,14 +108,15 @@
           </thead>
           <tbody class="text-white">
             <tr id="tableRow">
-              <td class="songData">Around the world</td>
-              <td class="songData">Daft Punk</td>
+              <td id="songDiv" class="songData">New Light</td>
+              <td id="artistDiv" class="songData">John Mayer</td>
+
             </tr>
           </tbody>
         </table>
         <br>
         <table class="table table-striped table-bordered text-center">
-          <thead class="thead font-weight-bold bg-primary text-white">
+          <thead class="thead font-weight-bold text-dark">
             <tr>
               <th class="albumHeader">Albums</th>
               <th class="albumHeader">Artist</th>
@@ -111,7 +132,7 @@
         </table>
         <br>
         <table class="table table-striped table-bordered text-center">
-          <thead class="thead font-weight-bold bg-primary text-white">
+          <thead class="thead font-weight-bold text-dark">
             <tr>
               <th class="artistHeader">Artists</th>
             </tr>
@@ -145,61 +166,123 @@
         </div>
       </div>
 
+
+
       <div class="col-8 offset-2" id="lyrics-div"></div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-4 offset-4">
-        <br>
-        <h1>Music Video</h1>
-      </div>
-    </div>
 
-    <!-- MUSIC VIDEO DISPLAY -->
-    <div class="row">
-      <div class="col-12" id="musicVideoContainer">
-        <img id="musicVideoPlayer">
-
-      </div>
     </div>
-    <!--row ends here-->
+    <div id="musicVideo" class="container">
+        <div class="row">
+          <div class="col-4 offset-4">
+            <br>
+            <h1>Music Video</h1>
+          </div>
+        </div>
+    
+        <!-- MUSIC VIDEO DISPLAY -->
+        <div class="row">
+          <div class="col-12" id="musicVideoContainer">
+            <img id="musicVideoPlayer">
+    
+          </div>
+        </div>
+      </div>
   </div>
   <!--frontPage div end-->
+  <br>
+  
+  <!--row ends here-->
 
   <!--photosPage div begin-->
+  
   <div id="photosPage" class="container">
+      <section id="photosTransitionSection">
+          <div class="photosTransition"></div>
+          <div class="photosTransition"></div>
+          <div class="photosTransition"></div>
+          <div class="photosTransition"></div>
+          <div class="photosTransition"></div>
+          <div class="photosTransition"></div>
+          <div class="photosTransition"></div>
+          <div class="photosTransition"></div>
+          <div class="photosTransition"></div>
+          <div class="photosTransition"></div>
+        </section>
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <div id="photos-div">
-            photosPage placeholder
+          <h1>Photo Gallery</h1>
+          <br>
+          <div class="row">
+            <div class="col-6 col-lg-3">
+              <img class="img-fluid artist-photo" src="http://lorempixel.com/300/200/" alt="placeholder">
+            </div>
+            <div class="col-6 col-lg-3">
+              <img class="img-fluid artist-photo" src="http://lorempixel.com/300/200/" alt="placeholder">
+            </div>
+            <div class="col-6 col-lg-3">
+              <img class="img-fluid artist-photo" src="http://lorempixel.com/300/200/" alt="placeholder">
+            </div>
+            <div class="col-6 col-lg-3">
+              <img class="img-fluid artist-photo" src="http://lorempixel.com/300/200/" alt="placeholder">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6 col-lg-3">
+              <img class="img-fluid artist-photo" src="http://lorempixel.com/300/200/" alt="placeholder">
+            </div>
+            <div class="col-6 col-lg-3">
+              <img class="img-fluid artist-photo" src="http://lorempixel.com/300/200/" alt="placeholder">
+            </div>
+            <div class="col-6 col-lg-3">
+              <img class="img-fluid artist-photo" src="http://lorempixel.com/300/200/" alt="placeholder">
+            </div>
+            <div class="col-6 col-lg-3">
+              <img class="img-fluid artist-photo" src="http://lorempixel.com/300/200/" alt="placeholder">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6 col-lg-3">
+              <img class="img-fluid artist-photo" src="http://lorempixel.com/300/200/" alt="placeholder">
+            </div>
+            <div class="col-6 col-lg-3">
+              <img class="img-fluid artist-photo" src="http://lorempixel.com/300/200/" alt="placeholder">
+            </div>
+            <div class="col-6 col-lg-3">
+              <img class="img-fluid artist-photo" src="http://lorempixel.com/300/200/" alt="placeholder">
+            </div>
+            <div class="col-6 col-lg-3">
+              <img class="img-fluid artist-photo" src="http://lorempixel.com/300/200/" alt="placeholder">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12" id="bottom-margin-photos"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
   <!--photosPage div end-->
-
-  <!--tourPage div begin-->
-  <div id="tourPage" class="container">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          tourPage placeholder
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--tourPage div end-->
-
-
+  
   <!--newsPage div begin-->
   <div id="newsPage" class="container">
+      <section id="newsSection">
+          <div class="newsTransition"></div>
+          <div class="newsTransition"></div>
+          <div class="newsTransition"></div>
+          <div class="newsTransition"></div>
+          <div class="newsTransition"></div>
+          <div class="newsTransition"></div>
+          <div class="newsTransition"></div>
+          <div class="newsTransition"></div>
+          <div class="newsTransition"></div>
+          <div class="newsTransition"></div>
+        </section>
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <br><br>
-          <h1>Artist Info</h1>
           <br><br>
           <h2 id="artistName"></h2>
           <br>
@@ -208,6 +291,20 @@
           <p class="wikiResults" id="results2"></p>
           <br>
           <p class="wikiResults" id="results3"></p>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div id="tourInfo" class="col-12">
+            <h2 id="tourHeader">Tour Info</h2>
+            <h2 id="artistNameTour"></h2>
+            <br>
+            <div class="text-center" id="tourDate"></div>
+            <br>
+            <div class="text-center" id="tourLink"></div>
+            <br>
+            <div class="text-center" id="localTourLink"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -224,8 +321,9 @@
       </div>
     </div>
   </div>
+  </div>
   <!--contactPage div end-->
-  <footer class="footer navbar navbar-default fixed-bottom">
+  <footer class="footer navbar navbar-default fixed-bottom text-dark">
     <div id="musicButtons" class="container">
       <i class="fa fa-fast-backward" id="previousButton"></i>
       <i class="fa fa-play" id="playButton"></i>
@@ -236,11 +334,13 @@
 
 
 
+
   </div>
   </div>
   <!--background ends here-->
 
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
   <script src="./assets/javascript/toneDef.js"></script>
 </body>
 
