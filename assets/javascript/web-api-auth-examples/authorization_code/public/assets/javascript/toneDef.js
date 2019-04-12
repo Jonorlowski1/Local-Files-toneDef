@@ -208,6 +208,124 @@ $('#returnToMainPage').on('click', function () {
   mainPage();
 });
 
+$(function () {
+  $('.jumbotron').css('opacity', 0);
+  $('.navbar').css('opacity', 0);
+  $('#frontPage').css('opacity', 0);
+  $('#photosPage').css('opacity', 0);
+  $('#tourPage').css('opacity', 0);
+  $('#newsPage').css('opacity', 0);
+  $('#contactPage').css('opacity', 0);
+  let tl = anime.timeline({
+    easing: 'easeOutExpo',
+    duration: 1000,
+  })
+
+  tl.add({
+    targets: 'section .transition',
+    translateY: 1000,
+    direction: 'reverse',
+    delay: anime.stagger(100, { from: 'center' }),
+  })
+
+  tl.add({
+    targets: 'section .transition',
+    translateY: -1000,
+    backgroundColor: 'rgb(242, 149, 89)',
+    delay: anime.stagger(100, {from: 'center'}),
+  })
+
+  tl.add({
+    targets: '.transition',
+    height: 0,
+  })
+
+  tl.add({
+    targets: '.jumbotron',
+    opacity: 1,
+    duration: 4000,
+  })
+
+  tl.add({
+    targets: '.navbar',
+    opacity: 1,
+    duration: 4000,
+  })
+
+  tl.add({
+    targets: '#frontPage',
+    opacity: 1,
+    duration: 500,
+  })
+  
+ 
+  /* tl.finished.then(function() {
+    $('section').hide();
+    $('.navbar').css('opacity', 1);
+    $('#frontPage').css('opacity', 1);
+    $('#photosPage').css('opacity', 1);
+    $('#tourPage').css('opacity', 1);
+    $('#newsPage').css('opacity', 1);
+    $('#contactPage').css('opacity', 1);
+    $('.footer').css('opacity', 1);
+  }); */
+});
+
+function photosTab() {
+  hideAll();
+  $('')
+  $('#photosPage').show();
+}
+
+
+function tourTab() {
+  hideAll();
+  $('#tourPage').show();
+}
+
+function mainPage() {
+  hideAll();
+  $('#frontPage').show();
+};
+
+function contactTab () {
+  hideAll();
+  $('#contactPage').show();
+};
+
+var newMusicVideo = $('<img>').attr('id', 'musicVideoPlayer');
+
+$('#submitButton').on('click', function () {
+  event.preventDefault();
+  $('#musicVideoContainer').empty();
+  $('#musicVideoContainer').append(newMusicVideo);
+  displayYouTubeVideo();
+  displayLastFmInfo();
+
+});
+
+$('#newsTab').on('click', function () {
+
+  $('#newsPage').css('opacity', 1);
+  newsTab();
+  let tl = anime.timeline({
+    easing: 'easeInOutSine',
+    duration: 1000,
+  })
+
+  tl.add({
+    targets: '#newsSection .newsTransition',
+    height: "40vh",
+    backgroundColor: 'rgb(150, 221, 255)',
+    translateX: 500,
+    delay: anime.stagger(100),
+  })
+});
+
+$('#homeTab').on('click', function() {
+  mainPage();
+});
+
 //SPOTIFY Web Playback SDK
 
 var access_token = "";
