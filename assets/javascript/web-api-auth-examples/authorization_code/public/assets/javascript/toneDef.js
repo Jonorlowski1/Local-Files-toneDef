@@ -301,14 +301,19 @@ $(function () {
     direction: 'reverse',
     delay: anime.stagger(100, { from: 'center' }),
   })
-
+  
   tl.add({
     targets: 'section .transition',
     translateY: -1000,
     backgroundColor: 'rgb(242, 149, 89)',
     delay: anime.stagger(100, { from: 'center' }),
   })
-
+  
+  tl.add({
+    targets: '#spotifyBtn',
+    opacity: 1,
+    duration: 500,
+  })
   tl.add({
     targets: '.transition',
     height: 0,
@@ -325,6 +330,7 @@ $(function () {
     opacity: 1,
     duration: 4000,
   })
+
 
 
 
