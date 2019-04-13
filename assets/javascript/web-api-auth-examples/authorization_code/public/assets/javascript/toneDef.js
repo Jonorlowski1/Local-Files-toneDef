@@ -102,6 +102,7 @@ function displayOtherEvents() {
       console.log("local upcoming events: " + upcomingEvents);
 
       var subHeader = $("<a class=tour-link href=" + upcomingEvents + ">Find out if " + $('#searchInput').val().trim() + " is on tour near you!</a>");
+      $('#localTourLink').empty();
       $('#localTourLink').append(subHeader);
 
     response_ip = response.ip;
@@ -131,7 +132,7 @@ function artistLookup() {
     var tourDate = response.resultsPage.results.artist[0].uri;
     var subHeader = $("<a class=tour-link href=" + tourDate + ">Find out where " + artist + " is currently touring by clicking here</a>");
     var onTour = response.resultsPage.results.artist[0].onTourUntil;
-
+    $('#tourLink').empty();
     $('#artistNameTour').text(artistName);
     $('#tourDate').text('On Tour Until: ' + onTour);
     $('#tourLink').append(subHeader);
