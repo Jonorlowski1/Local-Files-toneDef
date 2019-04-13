@@ -101,16 +101,17 @@ function displayOtherEvents() {
       var upcomingEvents = response.resultsPage.results.location[0].metroArea.uri;
       console.log("local upcoming events: " + upcomingEvents);
 
-      var subHeader = $("<a class=tour-link href=" + upcomingEvents + ">Find out if " + $('#artistDiv').text() + " is on tour near you!</a>");
+      var subHeader = $("<a class=tour-link href=" + upcomingEvents + ">Find out if " + $('#searchInput').val().trim() + " is on tour near you!</a>");
       $('#localTourLink').append(subHeader);
 
-      response_ip = response.ip;
-      console.log("User IP: " + response_ip)
-      console.log(response);
+    response_ip = response.ip;
+    console.log("User IP: " + response_ip)
+    console.log(response);
 
     })
   });
 };
+displayOtherEvents();
 
 function artistLookup() {
   //SONGKICK SIMILAR ARTIST LOOKUP
@@ -126,7 +127,7 @@ function artistLookup() {
     console.log(response);
 
     var artistName = response.resultsPage.results.artist[0].displayName;
-    var subHeader = $("<a class=tour-link href=" + tourDate + ">Find out where " + $('#artistDiv').text() + " is currently touring by clicking here</a>");
+    var subHeader = $("<a class=tour-link href=" + tourDate + ">Find out where " + artist + " is currently touring by clicking here</a>");
     var tourDate = response.resultsPage.results.artist[0].uri;
     var onTour = response.resultsPage.results.artist[0].onTourUntil;
 
@@ -243,12 +244,13 @@ var newMusicVideo = $('<img>').attr('id', 'musicVideoPlayer');
 
 $('#submitButton').on('click', function () {
   event.preventDefault();
+  $('#frontPage').css('opacity', 1);
+  $('.homeTransition').css('height', 0);
+  mainPage();
   $('#musicVideoContainer').empty();
   $('#musicVideoContainer').append(newMusicVideo);
   displayYouTubeVideo();
   displayLastFmInfo();
-  displayOtherEvents();
-
 });
 
 $('#newsTab').on('click', function () {
@@ -320,10 +322,6 @@ $(function () {
     opacity: 1,
     duration: 4000,
   })
-  tl.add({
-    targets: '#spotifyBtn',
-    opacity: 1,
-  })
 
 
 
@@ -383,7 +381,7 @@ $('#newsTab').on('click', function () {
     height: '57vh',
     width: '90%',
     backgroundColor: 'rgb(150, 221, 255)',
-    delay: anime.stagger(100, { from: 'center' }),
+    delay: anime.stagger(100, { from: 'center'}),
   })
   tl.add({
     targets: '#newsSection .newsTransition',
@@ -397,7 +395,7 @@ $('#homeTab').on('click', function () {
   $('.homeTransition').css('opacity', 1);
   mainPage();
 
-  let tl = anime.timeline({
+  let tl= anime.timeline({
     duration: 1000,
   })
   tl.add({
@@ -408,11 +406,10 @@ $('#homeTab').on('click', function () {
     backgroundColor: 'rgb(150, 221, 255',
     delay: anime.stagger(100),
   })
-  tl.add({
-    targets: '#homeSection .homeTransition',
-    height: 0,
-    easing: 'easeInOutCirc',
-  })
+  tl.add({targets: '#homeSection .homeTransition',
+  height: 0,
+  easing: 'easeInOutCirc',
+})
 });
 
 $('#photosTab').on('click', function () {
@@ -443,29 +440,29 @@ $('#tourDatesTab').on('click', function () {
 });
 //SPOTIFY Web Playback SDK
 
-//   function displayLyrics() {
-//     var cors = 'https://cors-anywhere.herokuapp.com/'
-//     var artist = state.track_window.current_track.artists[0].name;
-//     var song = state.track_window.current_track.name;
-//     var queryURL_lyrics = "https://private-anon-1e650a5c58-lyricsovh.apiary-proxy.com/v1/" + artist + "/" + song;
-//     $.ajax({
-//       url: cors + queryURL_lyrics,
-//       method: "GET",
-//     }).then(function (response) {
-//       console.log('LYRICS', response.body);
-//       var lyrics = response.lyrics;
-//       $("#lyrics-div").html(lyrics);
-//     });
-//     console.log('SONG TITLE', song);
-//     console.log('ARTIST NAME', artist);
-//   };
-//   displayLyrics();
-// });
+    //   function displayLyrics() {
+    //     var cors = 'https://cors-anywhere.herokuapp.com/'
+    //     var artist = state.track_window.current_track.artists[0].name;
+    //     var song = state.track_window.current_track.name;
+    //     var queryURL_lyrics = "https://private-anon-1e650a5c58-lyricsovh.apiary-proxy.com/v1/" + artist + "/" + song;
+    //     $.ajax({
+    //       url: cors + queryURL_lyrics,
+    //       method: "GET",
+    //     }).then(function (response) {
+    //       console.log('LYRICS', response.body);
+    //       var lyrics = response.lyrics;
+    //       $("#lyrics-div").html(lyrics);
+    //     });
+    //     console.log('SONG TITLE', song);
+    //     console.log('ARTIST NAME', artist);
+    //   };
+    //   displayLyrics();
+    // });
 
 var access_token = "";
 var player;
 var device_id = "";
-(function () {
+(function() {
 
   /**
    * Obtains parameters from the hash of the URL
@@ -474,30 +471,30 @@ var device_id = "";
   function getHashParams() {
     var hashParams = {};
     var e, r = /([^&;=]+)=?([^&;]*)/g,
-      q = window.location.hash.substring(1);
-    while (e = r.exec(q)) {
-      hashParams[e[1]] = decodeURIComponent(e[2]);
+        q = window.location.hash.substring(1);
+    while ( e = r.exec(q)) {
+       hashParams[e[1]] = decodeURIComponent(e[2]);
     }
     return hashParams;
   }
   var params = getHashParams();
   var access_token = params.access_token,
-    refresh_token = params.refresh_token,
-    error = params.error;
+  refresh_token = params.refresh_token,
+  error = params.error;
   console.log(access_token);
-
+  
   if (error) {
     alert('There was an error during the authentication');
   } else {
     if (access_token) {
-
+      
       $.ajax({
         url: 'https://api.spotify.com/v1/me',
         headers: {
           'Authorization': 'Bearer ' + access_token
         },
-        success: function (response) {
-
+        success: function(response) {
+          
           $('#login').hide();
           $('#loggedin').show();
         }
@@ -507,36 +504,36 @@ var device_id = "";
       $('#login').show();
       $('#loggedin').hide();
     }
-
-    document.getElementById('obtain-new-token').addEventListener('click', function () {
+    
+    document.getElementById('obtain-new-token').addEventListener('click', function() {
       $.ajax({
         url: '/refresh_token',
         data: {
           'refresh_token': refresh_token
         }
-      }).done(function (data) {
+      }).done(function(data) {
         access_token = data.access_token;
-        return (access_token);
+        return(access_token);
       });
     }, false);
   }
   window.onSpotifyWebPlaybackSDKReady = () => {
-
+    
     var token = access_token;
     var player = new Spotify.Player({
       name: 'toneDef',
       getOAuthToken: cb => { cb(token); }
     });
-
+    
     // Error handling
     player.addListener('initialization_error', ({ message }) => { console.error(message); });
     player.addListener('authentication_error', ({ message }) => { console.error(message); });
     player.addListener('account_error', ({ message }) => { console.error(message); });
     player.addListener('playback_error', ({ message }) => { console.error(message); });
-
+    
     // Playback status updates
     player.addListener('player_state_changed', state => { console.log(state); });
-
+    
     player.addListener('ready', ({ device_id }) => {
       console.log('Ready with Device ID', device_id);
       $.ajax({
@@ -552,28 +549,28 @@ var device_id = "";
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + access_token,
         },
-      }).then(function () {
+      }).then(function() {
         console.log("Device ID: " + device_id + " now playing");
       });
 
-      //   function displayLyrics() {
-      //     var cors = 'https://cors-anywhere.herokuapp.com/'
-      //     var artist = state.track_window.current_track.artists[0].name;
-      //     var song = state.track_window.current_track.name;
-      //     var queryURL_lyrics = "https://private-anon-1e650a5c58-lyricsovh.apiary-proxy.com/v1/" + artist + "/" + song;
-      //     $.ajax({
-      //       url: cors + queryURL_lyrics,
-      //       method: "GET",
-      //     }).then(function (response) {
-      //       console.log('LYRICS', response.body);
-      //       var lyrics = response.lyrics;
-      //       $("#lyrics-div").html(lyrics);
-      //     });
-      //     console.log('SONG TITLE', song);
-      //     console.log('ARTIST NAME', artist);
-      //   };
-      //   displayLyrics();
-      // });
+    //   function displayLyrics() {
+    //     var cors = 'https://cors-anywhere.herokuapp.com/'
+    //     var artist = state.track_window.current_track.artists[0].name;
+    //     var song = state.track_window.current_track.name;
+    //     var queryURL_lyrics = "https://private-anon-1e650a5c58-lyricsovh.apiary-proxy.com/v1/" + artist + "/" + song;
+    //     $.ajax({
+    //       url: cors + queryURL_lyrics,
+    //       method: "GET",
+    //     }).then(function (response) {
+    //       console.log('LYRICS', response.body);
+    //       var lyrics = response.lyrics;
+    //       $("#lyrics-div").html(lyrics);
+    //     });
+    //     console.log('SONG TITLE', song);
+    //     console.log('ARTIST NAME', artist);
+    //   };
+    //   displayLyrics();
+    // });
 
 
     });
@@ -582,28 +579,28 @@ var device_id = "";
       console.log('Device ID has gone offline', device_id);
     });
 
-    //CLICK TO PLAY A SONG
-
+//CLICK TO PLAY A SONG
+    
     // Connect to the player!
     player.connect();
-
-    $("#playButton").click(function () {
+    
+    $("#playButton").click(function(){
       player.resume();
       playerStatus();
     });
-    $("#pauseButton").click(function () {
+    $("#pauseButton").click(function(){
       player.pause();
       playerStatus();
     });
-    $("#previousButton").click(function () {
+    $("#previousButton").click(function(){
       player.previousTrack();
       playerStatus();
     });
-    $("#nextButton").click(function () {
+    $("#nextButton").click(function(){
       player.nextTrack();
       playerStatus();
     });
-
+    
 
     // ==============================
     // NEW SEARCH DISPLAY INFORMATION
@@ -622,10 +619,10 @@ var device_id = "";
     //   }).then(function(response) {
     //     console.log(response);
     //   });
-
+      
     // });
     //The Click event to play an object's URI was attached to the photos tab (for now)
-    $("#photosTab").click(function () {
+    $("#photosTab").click(function(){
       event.preventDefault();
       $.ajax({
         url: 'https://api.spotify.com/v1/me/player/play',
@@ -642,7 +639,7 @@ var device_id = "";
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + access_token,
         },
-      }).then(function () {
+      }).then(function() {
         console.log("hot lead");
       });
     });
@@ -658,7 +655,7 @@ var device_id = "";
           'Authorization': 'Bearer ' + access_token
         },
         method: "GET"
-      }).then(function (response) {
+      }).then(function(response) {
         console.log(response);
         var dataResponse = response.tracks.items;
         for (var i = 0; i < dataResponse.length; i++) {
@@ -688,25 +685,25 @@ var device_id = "";
     })
     // Connect to the player!
     player.connect();
-
-    $("#playButton").click(function () {
+    
+    $("#playButton").click(function(){
       player.resume();
       playerStatus();
     });
-    $("#pauseButton").click(function () {
+    $("#pauseButton").click(function(){
       player.pause();
       playerStatus();
     });
-    $("#previousButton").click(function () {
+    $("#previousButton").click(function(){
       player.previousTrack();
       playerStatus();
     });
-    $("#nextButton").click(function () {
+    $("#nextButton").click(function(){
       player.nextTrack();
       playerStatus();
     });
 
-    function playerStatus() {
+    function playerStatus(){
       player.getCurrentState().then(state => {
         if (!state) {
           console.error('User is not playing music through the Web Playback SDK');
@@ -716,7 +713,7 @@ var device_id = "";
           next_tracks: [next_track]
         } = state.track_window;
         console.log(current_track.album.uri)
-
+        
         console.log('Currently Playing', current_track);
         console.log('Playing Next', next_track);
 
