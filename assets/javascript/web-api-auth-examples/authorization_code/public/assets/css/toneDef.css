@@ -62,8 +62,18 @@ h1 {
     background-color: #96DDFF;
 }
 
+
+#contactBtn {
+    background-color: #96DDFF;
+}
+
+.contactForm {
+    color: #96DDFF;
+}
+
 #newsPage {
-    margin-bottom: 7%;
+
+  margin-bottom: 7%;
 }
 
 #tourHeader {

@@ -247,6 +247,7 @@ $('#submitButton').on('click', function () {
   $('#frontPage').css('opacity', 1);
   $('.homeTransition').css('height', 0);
   mainPage();
+
   $('#musicVideoContainer').empty();
   $('#musicVideoContainer').append(newMusicVideo);
   displayYouTubeVideo();
@@ -404,7 +405,7 @@ $('#homeTab').on('click', function () {
     height: '57vh',
     width: '90%',
     backgroundColor: 'rgb(150, 221, 255',
-    delay: anime.stagger(100),
+    delay: anime.stagger(100, {from: 'center'}),
   })
   tl.add({targets: '#homeSection .homeTransition',
   height: 0,
@@ -434,6 +435,29 @@ $('#photosTab').on('click', function () {
   })
 
 });
+
+$('#contactTab').on('click', function() {
+  $('#contactPage').css('opacity', 1);
+  contactTab();
+
+  let tl = anime.timeline({
+    duration: 1000,
+  })
+  tl.add({
+    targets: '#contactSection .contactTransition',
+    margin: '1em',
+    height: '57vh',
+    width: '90%',
+    backgroundColor: 'rgb(150, 221, 255)',
+    delay: anime.stagger(100, { from: 'last'}),
+  })
+  tl.add({
+    targets: '#contactSection .contactTransition',
+    height: 0,
+    easing: 'easeInOutCirc',
+  })
+  
+})
 
 $('#tourDatesTab').on('click', function () {
   tourTab();
@@ -676,12 +700,17 @@ var device_id = "";
           $('.album-body').append('<tr><td>' + albumName + '</td><td>' + artistName + '</td></tr>');
         }
       });
-      $(document).on('click', '.trackuri', playSelectedSong());
-      function playSelectedSong() {
-        var thisTrackID = $(this).attr('data-name');
-        console.log('TRACK ID', thisTrackID);
-        console.log('TRACK ID', $(this).attr('data-name'));
-      }
+      $(document).ready(function() {
+        $(document).click('.tracklist', playSelectedSong)
+
+        function playSelectedSong() {
+          var trackuri = ($(this).data("name"));
+          console.log('TRACK ID ' + trackuri);
+          console.log('TRACK ID', trackuri);
+          console.log('TRACK ID', $(this).attr('data-name'));
+        }
+      });
+   
     })
     // Connect to the player!
     player.connect();
