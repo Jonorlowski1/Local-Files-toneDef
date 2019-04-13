@@ -438,6 +438,29 @@ $('#photosTab').on('click', function () {
 
 });
 
+$('#contactTab').on('click', function() {
+  $('#contactPage').css('opacity', 1);
+  contactTab();
+
+  let tl = anime.timeline({
+    duration: 1000,
+  })
+  tl.add({
+    targets: '#contactSection .contactTransition',
+    margin: '1em',
+    height: '57vh',
+    width: '90%',
+    backgroundColor: 'rgb(150, 221, 255)',
+    delay: anime.stagger(100),
+  })
+  tl.add({
+    targets: '#contactSection .contactTransition',
+    height: 0,
+    easing: 'easeInOutCirc',
+  })
+  
+})
+
 $('#tourDatesTab').on('click', function () {
   tourTab();
 });
