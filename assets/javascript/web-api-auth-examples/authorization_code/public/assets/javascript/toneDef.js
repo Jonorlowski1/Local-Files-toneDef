@@ -244,9 +244,6 @@ var newMusicVideo = $('<img>').attr('id', 'musicVideoPlayer');
 
 $('#submitButton').on('click', function () {
   event.preventDefault();
-  $('#frontPage').css('opacity', 1);
-  $('.homeTransition').css('height', 0);
-  mainTab();
   $('#musicVideoContainer').empty();
   $('#musicVideoContainer').append(newMusicVideo);
   displayYouTubeVideo();
@@ -321,6 +318,10 @@ $(function () {
     targets: '.navbar',
     opacity: 1,
     duration: 4000,
+  })
+  tl.add({
+    targets: '#spotifyBtn',
+    opacity: 1,
   })
 
 
