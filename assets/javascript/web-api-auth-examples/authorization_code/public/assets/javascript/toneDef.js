@@ -244,6 +244,9 @@ var newMusicVideo = $('<img>').attr('id', 'musicVideoPlayer');
 
 $('#submitButton').on('click', function () {
   event.preventDefault();
+  $('#frontPage').css('opacity', 1);
+  $('.homeTransition').css('height', 0);
+  mainTab();
   $('#musicVideoContainer').empty();
   $('#musicVideoContainer').append(newMusicVideo);
   displayYouTubeVideo();
@@ -283,6 +286,7 @@ $(function () {
   $('#newsPage').css('opacity', 0);
   $('#contactPage').css('opacity', 0);
   $('.homeTransition').css('opacity', 0);
+  $('#spotifyBtn').css('opacity', 0)
   let tl = anime.timeline({
     easing: 'easeOutExpo',
     duration: 1000,
@@ -602,7 +606,7 @@ var device_id = "";
     // NEW SEARCH DISPLAY INFORMATION
     // ==============================
     $("#submitButton").click(function () {
-      
+      $('')
       event.preventDefault();
       $('.table tbody').empty();
       var track = $('#searchInput').val().trim()
