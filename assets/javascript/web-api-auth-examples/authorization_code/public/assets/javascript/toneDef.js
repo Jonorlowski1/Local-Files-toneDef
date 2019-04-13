@@ -243,6 +243,11 @@ var newMusicVideo = $('<img>').attr('id', 'musicVideoPlayer');
 
 $('#submitButton').on('click', function () {
   event.preventDefault();
+
+  $('#frontPage').css('opacity', 1);
+  $('.homeTransition').css('height', 0);
+  // mainTab();
+
   $('#musicVideoContainer').empty();
   $('#musicVideoContainer').append(newMusicVideo);
   displayYouTubeVideo();
@@ -679,12 +684,17 @@ var device_id = "";
           $('.album-body').append('<tr><td>' + albumName + '</td><td>' + artistName + '</td></tr>');
         }
       });
-      $(document).on('click', '.trackuri', playSelectedSong());
-      function playSelectedSong() {
-        var thisTrackID = $(this).attr('data-name');
-        console.log('TRACK ID', thisTrackID);
-        console.log('TRACK ID', $(this).attr('data-name'));
-      }
+      $(document).ready(function() {
+        $(document).click('.tracklist', playSelectedSong)
+
+        function playSelectedSong() {
+          var trackuri = ($(this).data("name"));
+          console.log('TRACK ID ' + trackuri);
+          console.log('TRACK ID', trackuri);
+          console.log('TRACK ID', $(this).attr('data-name'));
+        }
+      });
+   
     })
     // Connect to the player!
     player.connect();
