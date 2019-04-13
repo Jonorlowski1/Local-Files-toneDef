@@ -411,7 +411,7 @@ $('#homeTab').on('click', function () {
     height: '57vh',
     width: '90%',
     backgroundColor: 'rgb(150, 221, 255',
-    delay: anime.stagger(100),
+    delay: anime.stagger(100, {from: 'center'}),
   })
   tl.add({
     targets: '#homeSection .homeTransition',
@@ -456,7 +456,7 @@ $('#contactTab').on('click', function() {
     height: '57vh',
     width: '90%',
     backgroundColor: 'rgb(150, 221, 255)',
-    delay: anime.stagger(100),
+    delay: anime.stagger(100, { from: 'last'}),
   })
   tl.add({
     targets: '#contactSection .contactTransition',
