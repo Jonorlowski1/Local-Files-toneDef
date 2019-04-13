@@ -244,9 +244,6 @@ var newMusicVideo = $('<img>').attr('id', 'musicVideoPlayer');
 
 $('#submitButton').on('click', function () {
   event.preventDefault();
-  $('#frontPage').css('opacity', 1);
-  $('.homeTransition').css('height', 0);
-  mainTab();
   $('#musicVideoContainer').empty();
   $('#musicVideoContainer').append(newMusicVideo);
   displayYouTubeVideo();
