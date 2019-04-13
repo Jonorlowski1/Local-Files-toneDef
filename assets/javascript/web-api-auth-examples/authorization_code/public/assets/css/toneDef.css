@@ -29,6 +29,11 @@ h1 {
     color: #343A40;  
 }
 
+.form-group,
+.form-check-label {
+    color: #eeeeee;
+}
+
 #frontPageH1 {
     color: #343A40;
     text-align: center;
@@ -222,6 +227,10 @@ h2 {
     height: 100vh;
     margin-right: 1em;
     z-index: 2;
+}
+
+#contactPage {
+    margin-bottom: 7%;
 }
 
 section {
