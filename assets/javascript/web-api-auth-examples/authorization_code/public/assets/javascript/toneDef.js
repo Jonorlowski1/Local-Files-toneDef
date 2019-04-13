@@ -111,13 +111,13 @@ function displayOtherEvents() {
     })
   });
 };
-displayOtherEvents();
 
 function artistLookup() {
   //SONGKICK SIMILAR ARTIST LOOKUP
   var artist = $('#searchInput').val().trim();
   var apikey_localEvents = "926QLoynaFfTnoup"
   var queryURL_artistEvents = "https://api.songkick.com/api/3.0/search/artists.json?apikey=" + apikey_localEvents + "&query=" + artist;
+  console.log('ARTIST LOOKUP', artist)
   $.ajax({
     url: queryURL_artistEvents,
     method: "GET",
@@ -125,10 +125,11 @@ function artistLookup() {
 
     console.log("artist upcoming events");
     console.log(response);
+    console.log(artist);
 
     var artistName = response.resultsPage.results.artist[0].displayName;
-    var subHeader = $("<a class=tour-link href=" + tourDate + ">Find out where " + artist + " is currently touring by clicking here</a>");
     var tourDate = response.resultsPage.results.artist[0].uri;
+    var subHeader = $("<a class=tour-link href=" + tourDate + ">Find out where " + artist + " is currently touring by clicking here</a>");
     var onTour = response.resultsPage.results.artist[0].onTourUntil;
 
     $('#artistNameTour').text(artistName);
@@ -138,7 +139,6 @@ function artistLookup() {
     console.log('LINK TO TOUR INFO: ' + tourDate);
   })
 };
-artistLookup();
 
 function displayYouTubeVideo() {
   var searchTerm = $('#searchInput').val().trim();
@@ -201,7 +201,7 @@ function displayLastFmInfo() {
     console.log('LastFM: ' + response.artist.name);
     var artistName = JSON.stringify(response.artist.name);
     var results1 = JSON.parse(JSON.stringify(response.artist.bio.summary));
-    $('#artistName').text(artistName);
+    // $('#artistName').text(artistName);
     $('#results1').text(results1);
   });
 
@@ -247,7 +247,8 @@ $('#submitButton').on('click', function () {
   $('#frontPage').css('opacity', 1);
   $('.homeTransition').css('height', 0);
   mainPage();
-
+  artistLookup();
+  displayOtherEvents();
   $('#musicVideoContainer').empty();
   $('#musicVideoContainer').append(newMusicVideo);
   displayYouTubeVideo();
