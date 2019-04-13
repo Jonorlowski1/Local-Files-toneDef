@@ -494,7 +494,7 @@ $('#tourDatesTab').on('click', function () {
 // });
 
 var access_token = "";
-var player;
+var player = "";
 var device_id = "";
 (function () {
 
@@ -559,6 +559,37 @@ var device_id = "";
       getOAuthToken: cb => { cb(token); }
     });
 
+
+    $(document).ready(function() {
+      $(".track-body").on('click','.tracklist', function(){
+        var newTrack = (this.getAttribute( "trackuri" ));
+        console.log(newTrack);
+        console.log("hot diggity");
+        var trackuri = newTrack;
+        var token = access_token;
+        $.ajax({
+          url: 'https://api.spotify.com/v1/me/player/play',
+          method: 'PUT',
+          data: JSON.stringify({
+            "uris":
+              [trackuri,],
+          }),
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+          },
+        }).then(function() {
+          console.log("hot lead");
+        });
+      })
+    });
+
+    function playSelectedSong() {
+      event.preventDefault();
+      
+    };
+
     // Error handling
     player.addListener('initialization_error', ({ message }) => { console.error(message); });
     player.addListener('authentication_error', ({ message }) => { console.error(message); });
@@ -585,6 +616,7 @@ var device_id = "";
         },
       }).then(function () {
         console.log("Device ID: " + device_id + " now playing");
+        return(device_id);
       });
 
       //   function displayLyrics() {
@@ -639,44 +671,6 @@ var device_id = "";
     // ==============================
     // NEW SEARCH DISPLAY INFORMATION
     // ==============================
-    // $("#submitButton").click(function () {
-    //   $('')
-    //   event.preventDefault();
-    //   $('.table tbody').empty();
-    //   var track = $('#searchInput').val().trim()
-    //   $.ajax({
-    //     url: 'https://api.spotify.com/v1/search?q=' + track + '&type=track&limit=10',
-    //     headers: {
-    //       'Authorization': 'Bearer ' + access_token
-    //     },
-    //     method: "GET"
-    //   }).then(function(response) {
-    //     console.log(response);
-    //   });
-
-    // });
-    //The Click event to play an object's URI was attached to the photos tab (for now)
-    $("#photosTab").click(function () {
-      event.preventDefault();
-      $.ajax({
-        url: 'https://api.spotify.com/v1/me/player/play',
-        method: 'PUT',
-        data: JSON.stringify({
-          "context_uri": "spotify:album:5ht7ItJgpBH7W6vJ5BqpPr",
-          "offset": {
-            "position": 5
-          },
-          "position_ms": 0
-        }),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + access_token,
-        },
-      }).then(function () {
-        console.log("hot lead");
-      });
-    });
 
     //SEARCH FOR SONGS
     $("#submitButton").click(function () {
@@ -693,35 +687,26 @@ var device_id = "";
         console.log(response);
         var dataResponse = response.tracks.items;
         for (var i = 0; i < dataResponse.length; i++) {
-
+          
           var trackID = dataResponse[i].uri;
           console.log('TRACK ID: ' + trackID);
-
+          
           var trackName = dataResponse[i].name;
           console.log('TRACK: ' + trackName);
-
+          
           var albumName = dataResponse[i].album.name;
           console.log('ALBUM: ' + albumName);
-
+          
           var artistName = dataResponse[i].artists[0].name;
           console.log('ARTIST: ' + artistName);
-
-          $('.track-body').append("<tr><td class='trackuri' data-name='" + trackID + "'>" + trackName + '</td><td>' + artistName + '</td></tr>');
+          
+          $('.track-body').append("<tr><td class='tracklist' trackuri ='" + trackID + "'>" + trackName + '</td><td>' + artistName + '</td></tr>');
           $('.album-body').append('<tr><td>' + albumName + '</td><td>' + artistName + '</td></tr>');
-        }
-      });
-      $(document).ready(function () {
-        $(document).click('.tracklist', playSelectedSong)
-
-        function playSelectedSong() {
-          var trackuri = ($(this).data("name"));
-          console.log('TRACK ID ' + trackuri);
-          console.log('TRACK ID', trackuri);
-          console.log('TRACK ID', $(this).attr('data-name'));
         }
       });
 
     })
+    
     // Connect to the player!
     player.connect();
 
