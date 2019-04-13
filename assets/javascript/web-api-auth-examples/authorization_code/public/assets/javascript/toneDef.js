@@ -526,32 +526,37 @@ var device_id = "";
     });
 
     $(document).ready(function() {
-      $(".track-body").on('click','.tracklist', playSelectedSong)
+      $(".track-body").on('click','.tracklist', function(){
+        var newTrack = (this.getAttribute( "trackuri" ));
+        console.log(newTrack);
+        console.log("hot diggity");
+        var trackuri = newTrack;
+        var token = access_token;
+        $.ajax({
+          url: 'https://api.spotify.com/v1/me/player/play',
+          method: 'PUT',
+          data: JSON.stringify({
+            "uris":
+              [trackuri,],
+          }),
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+          },
+        }).then(function() {
+          console.log("hot lead");
+        });
+      })
     });
+
+    // $(document).ready(function() {
+    //   $(".track-body").on('click','.tracklist', playSelectedSong)
+    // });
     
     function playSelectedSong() {
       event.preventDefault();
-      var trackuri = $(".tracklist").attr('trackuri');
-      var token = access_token;
-      $.ajax({
-        url: 'https://api.spotify.com/v1/me/player/play?device_id=' + device_id,
-        method: 'PUT',
-        data: JSON.stringify({
-          "context_uri":
-            'spotify:album:31776n0a6xHYMHSlK4983u',
-          "offset": {
-            "position": 5
-          },
-          "position_ms": 0
-        }),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + 'BQBhStUKuT5QdxbOLunkAOaWLdpqfWd7DC8fdhDImcKooelcAyCQj5rh5Fz66DVglCR-1MUIBVFLOae-rfG_JOE0dHVuN_i947i8zHcSmuh0hcVZmPVS_C5TkvPSdw4T2itJwlsQEGD8MSydit-MJmaRbMJfKzoNvmK7yKwzSGFoLipyVQ',
-        },
-      }).then(function() {
-        console.log("hot lead");
-      });
+      
     };
     // Error handling
     player.addListener('initialization_error', ({ message }) => { console.error(message); });
