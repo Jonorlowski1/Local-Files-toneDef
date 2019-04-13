@@ -322,6 +322,10 @@ $(function () {
     opacity: 1,
     duration: 4000,
   })
+  tl.add({
+    targets: '#spotifyBtn',
+    opacity: 1,
+  })
 
 
 
