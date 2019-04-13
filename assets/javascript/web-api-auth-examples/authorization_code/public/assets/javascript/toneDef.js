@@ -525,6 +525,10 @@ var device_id = "";
       getOAuthToken: cb => { cb(token); }
     });
 
+    $(document).ready(function() {
+      $(".track-body").on('click','.tracklist', playSelectedSong)
+    });
+    
     function playSelectedSong() {
       event.preventDefault();
       var trackuri = $(".tracklist").attr('trackuri');
@@ -534,7 +538,7 @@ var device_id = "";
         method: 'PUT',
         data: JSON.stringify({
           "context_uri":
-            trackuri,
+            'spotify:album:31776n0a6xHYMHSlK4983u',
           "offset": {
             "position": 5
           },
@@ -543,7 +547,7 @@ var device_id = "";
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + 'BQAasNVE7u2aQezKaGqnF0rx3pAgruC',
+          'Authorization': 'Bearer ' + 'BQBhStUKuT5QdxbOLunkAOaWLdpqfWd7DC8fdhDImcKooelcAyCQj5rh5Fz66DVglCR-1MUIBVFLOae-rfG_JOE0dHVuN_i947i8zHcSmuh0hcVZmPVS_C5TkvPSdw4T2itJwlsQEGD8MSydit-MJmaRbMJfKzoNvmK7yKwzSGFoLipyVQ',
         },
       }).then(function() {
         console.log("hot lead");
@@ -680,9 +684,6 @@ var device_id = "";
         }
       });
       
-      $(document).ready(function() {
-        $(".track-body").on('click','.tracklist', playSelectedSong)
-      });
       
     })
     
