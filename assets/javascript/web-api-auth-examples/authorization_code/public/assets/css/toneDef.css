@@ -62,6 +62,24 @@ h1 {
     background-color: #96DDFF;
 }
 
+
+#contactBtn {
+    background-color: #96DDFF;
+}
+
+.contactForm {
+    color: #96DDFF;
+}
+
+.songContainer {
+    margin-top: 5%;
+}
+
+#newsPage {
+
+  margin-bottom: 7%;
+}
+
 #tourHeader {
     color: #343A40;
     text-align: center;
