@@ -15,7 +15,7 @@ var cookieParser = require('cookie-parser');
 
 var client_id = '4058085b0d804e24ad86e4ee5217eb4a'; // Your client id
 var client_secret = '1cc644d7a98c4d66b82201674d70753d'; // Your secret
-var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+var redirect_uri = 'https://evening-tundra-78432.herokuapp.com/callback/'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -146,3 +146,6 @@ app.get('/refresh_token', function (req, res) {
 
 console.log('Listening on 8888');
 app.listen(8888);
+var https = require('https')
+https.createServer('https://evening-tundra-78432.herokuapp.com/callback/', app).listen(443);
+
