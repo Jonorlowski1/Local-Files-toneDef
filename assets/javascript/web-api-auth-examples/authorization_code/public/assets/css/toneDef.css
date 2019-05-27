@@ -29,6 +29,11 @@ h1 {
     color: #343A40;  
 }
 
+.form-control,
+.form-text {
+    width: 50%;
+}
+
 .form-group,
 .form-check-label {
     color: #eeeeee;
