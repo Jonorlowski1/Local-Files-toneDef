@@ -29,6 +29,16 @@ h1 {
     color: #343A40;  
 }
 
+.form-control,
+.form-text {
+    width: 50%;
+}
+
+.form-group,
+.form-check-label {
+    color: #eeeeee;
+}
+
 #frontPageH1 {
     color: #343A40;
     text-align: center;
@@ -51,6 +61,28 @@ h1 {
     -1px 1px 0 #96DDFF,
     1px 1px 0 #96DDFF;
     color: #343A40; 
+}
+
+#spotifyBtn {
+    background-color: #96DDFF;
+}
+
+
+#contactBtn {
+    background-color: #96DDFF;
+}
+
+.contactForm {
+    color: #96DDFF;
+}
+
+.songContainer {
+    margin-top: 5%;
+}
+
+#newsPage {
+
+  margin-bottom: 7%;
 }
 
 #tourHeader {
@@ -222,6 +254,10 @@ h2 {
     height: 100vh;
     margin-right: 1em;
     z-index: 2;
+}
+
+#contactPage {
+    margin-bottom: 7%;
 }
 
 section {

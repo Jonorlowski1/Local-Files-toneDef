@@ -14,16 +14,22 @@
     crossorigin="anonymous"></script>
   <script src="https://sdk.scdn.co/spotify-player.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="./assets/css/toneDef.css">
 </head>
 
 <body>
 
   <div class="container">
+<<<<<<< HEAD
     <div id="login">
       <a href="/login" class="btn btn-primary margin-top=20px" id="login-with-spotify">Log in with Spotify</a>
+=======
+    <div id="login-with-spotify">
+      <a href="/login" class="btn mt-3" id="spotifyBtn">Log in with Spotify</a>
+
+>>>>>>> f1cdc736d981ab6a51cdd33bb1a11ab6b872f4c5
     </div>
     <div id="loggedin">
       <div id="user-profile">
@@ -81,7 +87,7 @@
 
         <button class="btn btn-outline-dark my-2 my-sm-0" id="submitButton" type="submit">Search</button>
 
-        
+
 
       </form>
     </div>
@@ -101,28 +107,10 @@
       <div class="homeTransition"></div>
       <div class="homeTransition"></div>
     </section>
-    <div class="container">
-      <div id="login">
-        <a href="/login" class="btn mt-3">Spotify Login</a>
-      </div>
-      <div id="loggedin">
-        <div id="user-profile">
-        </div>
-        <div id="oauth">
-        </div>
-        <button class="btn btn-default" id="obtain-new-token">Refresh Token</button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <br><br>
-        <h1 id="frontPageH1">Search Results</h1>
-      </div>
-    </div>
     <!--results header row ends here-->
 
     <div class="row">
-      <div class="col-12">
+      <div class="songContainer col-12">
 
         <table class="table table-striped table-bordered text-center">
           <thead class="thead font-weight-bold text-dark">
@@ -272,17 +260,13 @@
           <br><br>
           <h2 id="artistName"></h2>
           <br>
-          <p class="wikiResults" id="results1"></p>
-          <br>
-          <p class="wikiResults" id="results2"></p>
-          <br>
-          <p class="wikiResults" id="results3"></p>
         </div>
       </div>
-      <div class="container">
+      <div id="tourInfoContainer" class="container">
         <div class="row">
           <div id="tourInfo" class="col-12">
             <h2 id="tourHeader" class="frontPageH1">Tour Info</h2>
+            <br>
             <h2 id="artistNameTour"></h2>
             <br>
             <div class="text-center" id="tourDate"></div>
@@ -299,14 +283,43 @@
 
   <!--contactPage div begin-->
   <div id="contactPage" class="container">
+    <section id="contactSection">
+      <div class="contactTransition"></div>
+      <div class="contactTransition"></div>
+      <div class="contactTransition"></div>
+      <div class="contactTransition"></div>
+      <div class="contactTransition"></div>
+      <div class="contactTransition"></div>
+      <div class="contactTransition"></div>
+      <div class="contactTransition"></div>
+      <div class="contactTransition"></div>
+      <div class="contactTransition"></div>
+    </section>
+
     <div class="container">
       <div class="row">
-        <div class="col-12">
-          contactPage placeholder
+        <div class="col-12 contactForm mt-5">
+          <form>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea">Name:</label>
+              <input class="form-control" id="exampleFormControlTextarea" rows="3" placeholder="John Smith"></input>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address:</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Message:</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Type message here..."></textarea>
+            </div>
+            <button type="submit" class="btn" id="contactBtn">Submit</button>
+          </form>
         </div>
       </div>
     </div>
-  </div>
+
   </div>
   <!--contactPage div end-->
   <footer class="footer navbar navbar-default fixed-bottom text-dark">
